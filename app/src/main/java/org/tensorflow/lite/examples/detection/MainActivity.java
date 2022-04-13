@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         cameraButton = findViewById(R.id.cameraButton);
         detectButton = findViewById(R.id.detectButton);
-        imageView = findViewById(R.id.imageView);
 
         cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
 
@@ -59,11 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }).start();
 
         });
-        this.sourceBitmap = Utils.getBitmapFromAsset(MainActivity.this, "tomatoes.jpg");
 
-        this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
-
-        this.imageView.setImageBitmap(cropBitmap);
 
         initBox();
     }
@@ -87,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     private Matrix frameToCropTransform;
     private Matrix cropToFrameTransform;
     private MultiBoxTracker tracker;
-    private OverlayView trackingOverlay;
 
     protected int previewWidth = 0;
     protected int previewHeight = 0;
@@ -111,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
         frameToCropTransform.invert(cropToFrameTransform);
 
         tracker = new MultiBoxTracker(this);
-        trackingOverlay = findViewById(R.id.tracking_overlay);
-        trackingOverlay.addCallback(
-                canvas -> tracker.draw(canvas));
-
         tracker.setFrameConfiguration(TF_OD_API_INPUT_SIZE, TF_OD_API_INPUT_SIZE, sensorOrientation);
 
         try {
@@ -156,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 //        tracker.trackResults(mappedRecognitions, new Random().nextInt());
-//        trackingOverlay.postInvalidate();
         imageView.setImageBitmap(bitmap);
     }
 }
