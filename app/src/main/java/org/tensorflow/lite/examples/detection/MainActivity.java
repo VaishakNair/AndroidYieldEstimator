@@ -40,18 +40,7 @@ public class MainActivity extends AppCompatActivity {
         standaloneButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
 
         webAppButton.setOnClickListener(v -> {
-            Handler handler = new Handler();
-
-            new Thread(() -> {
-                final List<Classifier.Recognition> results = detector.recognizeImage(cropBitmap);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleResult(cropBitmap, results);
-                    }
-                });
-            }).start();
-
+         startActivity(new Intent(MainActivity.this, WebAppActivity.class));
         });
 
 
@@ -118,29 +107,5 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
             finish();
         }
-    }
-
-    private void handleResult(Bitmap bitmap, List<Classifier.Recognition> results) {
-        final Canvas canvas = new Canvas(bitmap);
-        final Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(2.0f);
-
-        final List<Classifier.Recognition> mappedRecognitions =
-                new LinkedList<Classifier.Recognition>();
-
-        for (final Classifier.Recognition result : results) {
-            final RectF location = result.getLocation();
-            if (location != null && result.getConfidence() >= MINIMUM_CONFIDENCE_TF_OD_API) {
-                canvas.drawRect(location, paint);
-//                cropToFrameTransform.mapRect(location);
-//
-//                result.setLocation(location);
-//                mappedRecognitions.add(result);
-            }
-        }
-//        tracker.trackResults(mappedRecognitions, new Random().nextInt());
-        imageView.setImageBitmap(bitmap);
     }
 }
