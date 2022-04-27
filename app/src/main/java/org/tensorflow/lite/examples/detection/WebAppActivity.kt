@@ -26,6 +26,7 @@ import android.content.ContentValues
 import android.os.Build
 import org.tensorflow.lite.examples.detection.databinding.ActivityMainBinding
 import org.tensorflow.lite.examples.detection.databinding.ActivityWebAppBinding
+import java.io.File
 
 typealias LumaListener = (luma: Double) -> Unit
 
@@ -89,8 +90,13 @@ class WebAppActivity : AppCompatActivity() {
             .Builder(contentResolver, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
             .setContentValues(contentValues)
             .build()
+
+        val fileOutputOptions = FileOutputOptions.Builder(File(applicationContext.filesDir, "${SimpleDateFormat(FILENAME_FORMAT, Locale.US)
+            .format(System.currentTimeMillis())}.mp4")).build()
+
         recording = videoCapture.output
-            .prepareRecording(this, mediaStoreOutputOptions)
+            .prepareRecording(this, fileOutputOptions)
+//            .prepareRecording(this, mediaStoreOutputOptions)
             .start(ContextCompat.getMainExecutor(this)) { recordEvent ->
                 when(recordEvent) {
                     is VideoRecordEvent.Start -> {
