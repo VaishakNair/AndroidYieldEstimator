@@ -95,10 +95,7 @@ class WebAppActivity : AppCompatActivity() {
 
         val fileOutputOptions = FileOutputOptions.Builder(
             File(
-                applicationContext.filesDir, "${
-                    SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-                        .format(System.currentTimeMillis())
-                }.mp4"
+                applicationContext.filesDir, "video.mp4"
             )
         ).build()
 
