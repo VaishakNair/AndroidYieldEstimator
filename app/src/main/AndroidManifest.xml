@@ -32,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WebAppActivity"></activity>
+        <activity android:name=".UploadActivity"></activity>
 
     </application>
 </manifest>
