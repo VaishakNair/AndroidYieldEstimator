@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.tensorflow.lite.examples.detection.databinding.ActivityUploadBinding
-import org.tensorflow.lite.examples.detection.databinding.ActivityWebAppBinding
+
 
 class UploadActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityUploadBinding
 
+    private val serverApi = ServerApi.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,11 @@ class UploadActivity : AppCompatActivity() {
     private fun uploadVideo() {
         // TODO
         Log.i(TAG, intent.data!!.lastPathSegment!!)
+
+        serverApi.uploadVideo().enqueue{
+
+        }
+
     }
 
     companion object {

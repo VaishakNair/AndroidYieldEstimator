@@ -74,6 +74,8 @@ dependencies {
 
     implementation "androidx.camera:camera-view:${camerax_version}"
     implementation "androidx.camera:camera-extensions:${camerax_version}"
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
 }
 repositories {
     mavenCentral()
