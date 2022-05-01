@@ -3,6 +3,7 @@ package org.tensorflow.lite.examples.detection
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -22,6 +23,7 @@ interface ServerApi {
 
         fun create(): ServerApi {
             val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .build()
 
