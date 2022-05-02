@@ -30,6 +30,7 @@ class UploadActivity : AppCompatActivity() {
         // TODO
         Log.i(TAG, intent.data!!.lastPathSegment!!)
 
+
         val requestBody = RequestBody.create(
             MediaType.parse("video/mp4"),
             File(applicationContext.filesDir, "video.mp4")
@@ -42,11 +43,17 @@ class UploadActivity : AppCompatActivity() {
                 call: Call<ServerResponse?>,
                 response: Response<ServerResponse?>
             ) {
-                TODO("Not yet implemented")
+                // TODO
+                Log.i(TAG, response.isSuccessful.toString())
+                Log.i(TAG, response.message())
+                Log.i(TAG, response.code().toString())
+                Log.i(TAG, response.body()!!.message)
             }
 
             override fun onFailure(call: Call<ServerResponse?>, t: Throwable) {
-                TODO("Not yet implemented")
+               // TODO
+                Log.i(TAG, "onFailure() Message: ${t.message}")
+
             }
         })
 
