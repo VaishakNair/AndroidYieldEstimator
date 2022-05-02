@@ -1,5 +1,7 @@
 package org.tensorflow.lite.examples.detection
 
+
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -14,7 +16,8 @@ interface ServerApi {
     @POST("api/video_upload")
     @Headers("Accept:application/json")
     fun uploadVideo(
-        @Part("file") file: RequestBody?
+//        @Part("file") file: RequestBody?
+        @Part file: MultipartBody.Part
     ): Call<ServerResponse?>?
 
     companion object {

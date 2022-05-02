@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.tensorflow.lite.examples.detection.databinding.ActivityUploadBinding
 import retrofit2.Call
@@ -31,12 +32,17 @@ class UploadActivity : AppCompatActivity() {
         Log.i(TAG, intent.data!!.lastPathSegment!!)
 
 
+        val videoFile = File(applicationContext.filesDir, "video.mp4")
+        Log.i(TAG, videoFile.exists().toString())
+
         val requestBody = RequestBody.create(
             MediaType.parse("video/mp4"),
-            File(applicationContext.filesDir, "video.mp4")
+            videoFile
         );
 
-        val serverCall = serverApi.uploadVideo(requestBody)
+        val body = MultipartBody.Part.createFormData("file", videoFile.name, requestBody)
+
+        val serverCall = serverApi.uploadVideo(body)
 
         serverCall!!.enqueue(object : Callback<ServerResponse?> {
             override fun onResponse(
