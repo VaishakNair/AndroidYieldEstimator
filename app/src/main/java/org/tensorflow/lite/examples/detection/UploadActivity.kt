@@ -50,6 +50,9 @@ class UploadActivity : AppCompatActivity() {
                 response: Response<ServerResponse?>
             ) {
                 // TODO
+                if(response.isSuccessful) {
+                    getCount()
+                }
                 Log.i(TAG, response.isSuccessful.toString())
                 Log.i(TAG, response.message())
                 Log.i(TAG, response.code().toString())
@@ -60,6 +63,29 @@ class UploadActivity : AppCompatActivity() {
                // TODO
                 Log.i(TAG, "onFailure() Message: ${t.message}")
 
+            }
+        })
+
+    }
+
+    private fun getCount() {
+        val serverCall = serverApi.getCount()
+
+        serverCall!!.enqueue(object : Callback<ServerResponse?> {
+            override fun onResponse(
+                call: Call<ServerResponse?>,
+                response: Response<ServerResponse?>
+            ) {
+                // TODO
+                if(response.isSuccessful) {
+                   Log.i(TAG, "Fruit count: ${response.body()!!.message}")
+                }
+
+            }
+
+            override fun onFailure(call: Call<ServerResponse?>, t: Throwable) {
+                // TODO
+                Log.i(TAG, "onFailure() Message: ${t.message}")
             }
         })
 

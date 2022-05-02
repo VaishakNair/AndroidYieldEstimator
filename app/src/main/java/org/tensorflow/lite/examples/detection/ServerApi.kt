@@ -16,12 +16,17 @@ interface ServerApi {
     @POST("api/video_upload")
     @Headers("Accept:application/json")
     fun uploadVideo(
-//        @Part("file") file: RequestBody?
         @Part file: MultipartBody.Part
     ): Call<ServerResponse?>?
 
+
+    @GET("api/get_count")
+    @Headers("Accept:application/json")
+    fun getCount(): Call<ServerResponse?>?
+
     companion object {
-        private const val BASE_URL = "http://192.168.18.6:3000/" // TODO Change according to server location
+        private const val BASE_URL =
+            "http://192.168.18.6:3000/" // TODO Change according to server location
 
         fun create(): ServerApi {
             val retrofit = Retrofit.Builder()
