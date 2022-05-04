@@ -114,8 +114,8 @@ class WebAppActivity : AppCompatActivity() {
                         if (!recordEvent.hasError()) {
                             val msg = "Video capture succeeded: " +
                                     "${recordEvent.outputResults.outputUri}"
-                            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT)
-                                .show()
+//                            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT)
+//                                .show()
                             Log.d(TAG, msg)
                             startActivity(
                                 Intent(
