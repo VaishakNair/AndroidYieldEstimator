@@ -2,6 +2,7 @@ package org.tensorflow.lite.examples.detection
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -31,6 +32,9 @@ class UploadActivity : AppCompatActivity() {
         // TODO
         Log.i(TAG, intent.data!!.lastPathSegment!!)
 
+        viewBinding.uploadButton.visibility = View.GONE
+        viewBinding.progressLayout.visibility = View.VISIBLE
+        viewBinding.progressTextView.text = "Uploading video..."
 
         val videoFile = File(applicationContext.filesDir, "video.mp4")
         Log.i(TAG, videoFile.exists().toString())
@@ -69,6 +73,9 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun getCount() {
+
+        viewBinding.progressTextView.text = "Processing video and counting objects..."
+
         val serverCall = serverApi.getCount("tomato")
 
         serverCall!!.enqueue(object : Callback<ServerResponse?> {
@@ -79,6 +86,8 @@ class UploadActivity : AppCompatActivity() {
                 // TODO
                 if(response.isSuccessful) {
                    Log.i(TAG, "Fruit count: ${response.body()!!.message}")
+                    viewBinding.progressBar.visibility = View.GONE
+                    viewBinding.progressTextView.text = "Fruit count: ${response.body()!!.message}"
                 }
 
             }
