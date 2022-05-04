@@ -69,7 +69,7 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun getCount() {
-        val serverCall = serverApi.getCount()
+        val serverCall = serverApi.getCount("tomato")
 
         serverCall!!.enqueue(object : Callback<ServerResponse?> {
             override fun onResponse(

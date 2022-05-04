@@ -22,7 +22,7 @@ interface ServerApi {
 
     @GET("api/get_count")
     @Headers("Accept:application/json")
-    fun getCount(): Call<ServerResponse?>?
+    fun getCount(@Query("crop") crop: String): Call<ServerResponse?>?
 
     companion object {
         private const val BASE_URL =
