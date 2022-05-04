@@ -19,6 +19,8 @@ class UploadActivity : AppCompatActivity() {
 
     private val serverApi = ServerApi.create()
 
+    private var isCounted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityUploadBinding.inflate(layoutInflater)
@@ -55,7 +57,10 @@ class UploadActivity : AppCompatActivity() {
             ) {
                 // TODO
                 if(response.isSuccessful) {
-                    getCount()
+                    if(!isCounted) {
+                        isCounted = true
+                        getCount()
+                    }
                 }
                 Log.i(TAG, response.isSuccessful.toString())
                 Log.i(TAG, response.message())
